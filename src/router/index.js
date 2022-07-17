@@ -48,6 +48,7 @@ const routes = [
   },
   {
     path: '/ChatRobot',
+    name: 'ChatRobot',
     component: () => import('@/views/Chart/index.vue')
   }
 ]

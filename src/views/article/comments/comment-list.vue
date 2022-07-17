@@ -11,7 +11,7 @@
     @load="onLoad"
   >
     <CommentItem
-      v-for="(comment, index) in list"
+      v-for="(comment, index) in listdata"
       :key="index"
       :comment="comment"
       @reply-click="$emit('reply-click', $event)"
@@ -46,7 +46,7 @@ export default {
   },
   data () {
     return {
-      // list: [], // 存储评论数组
+      listdata: this.list, // 存储评论数组
       loading: false,
       finished: false,
       offset: null, // 获取下一页评论的标记（类似时间戳）
@@ -83,7 +83,7 @@ export default {
         const { results } = data.data
         //    将 data.data.total_count传给父组件更新底部总评论数(也可以直接传 data.data )
         this.$emit('update-success', data.data)
-        this.list.push(...results)
+        this.listdata.push(...results)
         // 3、将 loading 设置为 false
         this.loading = false
         // 4、判断是否还有数据
