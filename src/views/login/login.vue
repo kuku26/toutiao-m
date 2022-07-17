@@ -79,6 +79,7 @@
 
 <script>
 import { login, sendSms } from '@/api/user'
+import { setItem } from '@/utils/storage'
 export default {
   name: 'LoginIndex',
   data () {
@@ -128,6 +129,9 @@ export default {
         const { data } = await login(user)
         console.log(data) // data.data 中有： refresh_token 和 token
         this.$store.commit('setUser', data.data)
+        // 将 refresh token 存起来用作刷新 token
+        setItem('TOUTIAO_USER', data.data.token)
+        localStorage.setItem('refresh_token', data.data.refresh_token)
         this.$toast.success({
           message: '登录成功'
         })

@@ -120,3 +120,16 @@ export const userHistoryList = data => {
     data
   })
 }
+
+// 刷新用户 token
+export const getNewTokenAPI = () => {
+  return request({
+    url: '/v1_0/authorizations',
+    method: 'PUT',
+    headers: {
+      // 请求拦截器统一携带的是 token, 而这次请求需要带的是 refresh_token
+      // 所以在 axios 请求拦截器里判断，就是为了这种情况准备的
+      Authorization: 'Bearer' + localStorage.getItem('refresh_token')
+    }
+  })
+}

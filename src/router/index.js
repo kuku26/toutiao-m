@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store'
 // 总结：
 // 路由懒加载：为了让第一个页面，加载的 app.js 小一点，打开网页快一点
 // 思路：把组件对应的 js 分成若干个 .js 文件，。路由切换到哪个页面，才去加载对应的 .js 文件
@@ -12,7 +13,15 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/login/login.vue')
+    component: () => import('@/views/login/login.vue'),
+    beforEnter (to, from, next) {
+      const { user } = store.state
+      if (user?.length > 0) {
+        return next(false) // 留在原地，什么都不写
+      } else {
+        next() // 其他情况通通放行
+      }
+    }
   },
   {
     path: '/',
@@ -55,5 +64,18 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+
+// 路由 - 全局前置守卫（在路由发生真正跳转之前，执行此函数）
+// 此函数可以决定路由是否跳转/取消/强制中断切换到别的路由
+// router.beforeEach((to, from, next) => {
+//   // 需求： 如果已经登录了，不要切换到登录页面
+//   // ?. 和 && 类似：  a?.b 相当于 a && a.b ? a.b : undefined
+//   const { user } = store.state
+//   if (user?.length > 0 && to.path === '/login') {
+//     next(false) // 留在原地，什么都不写
+//   } else {
+//     next() // 其他情况通通放行
+//   }
+// })
 
 export default router
