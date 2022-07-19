@@ -18,6 +18,7 @@
         v-model.trim="localIntro"
         rows="2"
         autosize
+        v-fofo
         type="textarea"
         maxlength="100"
         placeholder="请输入内容"

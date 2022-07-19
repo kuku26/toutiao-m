@@ -118,8 +118,26 @@ export default {
     onUpdateActive (index, secChannelEditShow = true) {
       this.active = index
       this.isChannelEditShow = secChannelEditShow
+    },
+    scrollFn () {
+      this.$route.meta.scrollT = document.documentElement.scrollTop
+      // window 和 document 用来监听网页滚动的事件，
+      // html 标签用来获取 scrollTop 的滚动距离和设置滚动的位置
     }
+  },
+  activated () {
+    console.log(this.$route)
+    window.addEventListener('scroll', this.scrollFn)
+    document.documentElement.scrollTop = this.$route.meta.scrollT
+  },
+  // 所以在每次失去激活时，移除该滚动事件
+  // 注意：不要写 this.scrollFn(),不要调用，我们是要移除该事件该方法的，而不是调用
+  deactivated () {
+    window.removeEventListener('scroll', this.scrollFn)
   }
+  // 前提：使用了组件缓存 keep-alive，切走了就是失去激活生命周期方法触发
+  // 无组件缓存,被切走了, destroyed 销毁生命周期方法触发
+  // 每个页面都有自己独立的 路由规则对象（也就是每个页面都有自己的 $route ）
 }
 </script>
 

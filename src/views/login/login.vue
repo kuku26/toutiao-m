@@ -116,7 +116,7 @@ export default {
   methods: {
     async onSubmit () {
       // 1、获取表单数据
-      const user = this.user
+      // const user = this.user
       // 2、TODO：表单验证
       // 在组件中必须通过 this.$toast 来调用 Toast 组件
       this.$toast.loading({
@@ -126,7 +126,7 @@ export default {
       })
       // 3、提交表单请求登录
       try {
-        const { data } = await login(user)
+        const { data } = await login(this.user)
         console.log(data) // data.data 中有： refresh_token 和 token
         this.$store.commit('setUser', data.data)
         // 将 refresh token 存起来用作刷新 token
@@ -165,6 +165,7 @@ export default {
         await sendSms(this.user.mobile)
         this.$toast('发送成功！')
       } catch (err) {
+        this.isCountDown = false
         if (err.response.status === 429) {
           this.$toast('发送太频繁了，请60s后重新发送')
         } else {

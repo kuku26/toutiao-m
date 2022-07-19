@@ -18,6 +18,7 @@
         v-model.trim="localName"
         rows="2"
         autosize
+        v-fofo
         type="textarea"
         maxlength="11"
         placeholder="请输入昵称"

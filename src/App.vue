@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <!-- 路由的出口 -->
-    <router-view></router-view>
+    <keep-alive
+      exclude="LoginIndex,ArticleIndex,SearchIndex,SearchHistory,SearchResult,SearchSuggestion"
+    >
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 

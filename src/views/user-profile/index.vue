@@ -15,6 +15,7 @@
       type="file"
       hidden
       ref="file"
+      v-fofo
       @change="onChange"
     />
     <!-- /头像文件选择 -->

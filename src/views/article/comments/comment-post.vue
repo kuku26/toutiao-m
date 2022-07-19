@@ -5,6 +5,7 @@
       v-model.trim="message"
       rows="2"
       autosize
+      v-fofo
       type="textarea"
       maxlength="50"
       placeholder="请输入留言"

@@ -78,7 +78,7 @@ export default {
         const formData = new FormData()
         formData.append('photo', blob)
         const { data } = await updateUserPhoto(formData)
-        // console.log(data)
+        // console.log(data.data.photo)
 
         // 更新视图
         this.$emit('update-photo', data.data.photo)

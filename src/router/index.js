@@ -17,7 +17,10 @@ const routes = [
     beforEnter (to, from, next) {
       const { user } = store.state
       if (user?.length > 0) {
-        return next(false) // 留在原地，什么都不写
+        // next(false) // 留在原地，什么都不写
+        // 想要进登录页不留在原地了，而是返回首页
+        next('/')
+        // 手机App里没有地址栏，我们是不能破坏跳转的过程的
       } else {
         next() // 其他情况通通放行
       }
@@ -31,7 +34,10 @@ const routes = [
       {
         path: '', // 空字符串表示默认显示的路径页面的子路由，默认只能有1个
         name: 'home',
-        component: () => import('@/views/home')
+        component: () => import('@/views/home'),
+        meta: {
+          scrollT: 0 // 保存首页离开时的滚动条位置
+        }
       },
       {
         path: '/my', // 空字符串表示默认显示的路径页面
@@ -72,7 +78,7 @@ const router = new VueRouter({
 //   // ?. 和 && 类似：  a?.b 相当于 a && a.b ? a.b : undefined
 //   const { user } = store.state
 //   if (user?.length > 0 && to.path === '/login') {
-//     next(false) // 留在原地，什么都不写
+//     next('/layout/home') // 想要进登录页不留在原地了，而是返回首页
 //   } else {
 //     next() // 其他情况通通放行
 //   }
