@@ -13,7 +13,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/login/login.vue'),
+    component: () => import(/* webpackChunkName: "Login" */'@/views/login/login.vue'),
     beforEnter (to, from, next) {
       const { user } = store.state
       if (user?.length > 0) {
@@ -29,12 +29,12 @@ const routes = [
   {
     path: '/',
     // name: 'layout', // 既然该父路由设置了默认子路由显示，该 name 没有意义，控制台会报黄色警告
-    component: () => import('@/views/layout/index.vue'),
+    component: () => import(/* webpackChunkName: "Layout" */'@/views/layout/index.vue'),
     children: [
       {
         path: '', // 空字符串表示默认显示的路径页面的子路由，默认只能有1个
         name: 'home',
-        component: () => import('@/views/home'),
+        component: () => import(/* webpackChunkName: "Home" */'@/views/home'),
         meta: {
           scrollT: 0 // 保存首页离开时的滚动条位置
         }
@@ -42,29 +42,29 @@ const routes = [
       {
         path: '/my', // 空字符串表示默认显示的路径页面
         name: 'my',
-        component: () => import('@/views/my')
+        component: () => import(/* webpackChunkName: "My" */'@/views/my')
       }
     ]
   },
   {
     path: '/search',
-    component: () => import('@/views/search/index.vue')
+    component: () => import(/* webpackChunkName: "Search" */'@/views/search/index.vue')
   },
   {
     path: '/article/:articleId',
     name: 'article',
-    component: () => import('@/views/article'),
+    component: () => import(/* webpackChunkName: "Article" */'@/views/article'),
     props: true
   },
   {
     path: '/user/profile',
     name: 'user-profile',
-    component: () => import('@/views/user-profile')
+    component: () => import(/* webpackChunkName: "UserProfile" */'@/views/user-profile')
   },
   {
     path: '/ChatRobot',
     name: 'ChatRobot',
-    component: () => import('@/views/Chart/index.vue')
+    component: () => import(/* webpackChunkName: "ChatRobot" */'@/views/Chart/index.vue')
   }
 ]
 const router = new VueRouter({
