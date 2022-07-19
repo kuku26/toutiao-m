@@ -1,3 +1,4 @@
+import '@/utils/console' // 去掉打印语句
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
